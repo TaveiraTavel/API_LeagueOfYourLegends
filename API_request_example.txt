@@ -1,0 +1,96 @@
+{
+	"Champion" : "Ezreal",
+	"Spells" : [
+		{
+			"nomSpell" : "Purificar",
+			"imgSpell" : "SummonerBoost"
+		},
+		{
+			"nomSpell" : "Flash",
+			"imgSpell" : "SummonerFlash"
+		}
+	]
+	"Builds" : {
+		"inicial" : [
+			{
+				"nomItem" : "Lâmina de Doran",
+				"imgItem" : "1055"
+			},
+			{
+				"nomItem" : "Poção de Vida",
+				"imgItem" : "2003"
+			}
+		]
+		"geral" : [
+			{
+				"nomItem" : "Força da Trindade",
+				"imgItem" : "3078"
+			},
+			{
+				"nomItem" : "Botas Galvanizadas de Aço",
+				"imgItem" : "3047"
+			},
+			{
+				"nomItem" : "Manamune",
+				"imgItem" : "3004"
+			},
+			{
+				"nomItem" : "Coração Congelado",
+				"imgItem" : "3110"
+			},
+			{
+				"nomItem" : "Rancor de Serylda",
+				"imgItem" : "6694"
+			},
+			{
+				"nomItem" : "Hidra Raivosa",
+				"imgItem" : "3074"
+			}
+		]
+		"situacional" : [
+			{
+				"nomItem" : "Coroa da Rainha Despedaçada",
+				"imgItem" : "4644"
+			},
+			{
+				"nomItem" : "Ruptor Divino",
+				"imgItem" : "6632"
+			}
+		]
+	}
+	"Runes" : [
+		"arvore primaria" : {
+			"nomTree" : "Precisão",
+			"keyTree" : "Precision"
+			"runePrincipal" : {
+				"nomRune" : "Pressione o Ataque",
+				"imgRune" : "PressTheAttack"
+			},
+			"rune1" : {
+				"nomRune" : "Presença de Espírito",
+				"imgRune" : "PresenceOfMind"
+			},
+			"rune2" : {
+				"nomRune" : "Lenda: Linhagem",
+				"imgRune" : "LegendBloodline"
+			},
+			"rune3" : {
+				"nomRune" : "Golpe de Misericórdia",
+				"imgRune" : "CoupDeGrace"
+			}
+		}
+		],
+		"arvore secundaria" : [
+			"nomTree" : "Inspiração",
+			"keyTree" : "Inspiration"
+			"rune1" : {
+				"nomRune" : "Calçados Mágicos",
+				"imgRune" : "MagicalFootwear"
+			},
+			"rune2" : {
+				"nomRune" : "Entrega de Biscoitos",
+				"imgRune" : "BiscuitDelivery"
+			}
+		]
+	]
+}
