@@ -5,20 +5,21 @@ USE dbLeagueOfYourLegends;
 # TABELA FEITIÇOS
 CREATE TABLE tbSpell(
 	idSpell smallint primary key auto_increment,
-    nomSpell varchar(16) not null,
-    imgSpell varchar(24) not null
+    nomSpell varchar(16) not null unique,
+    keySpell varchar(16) not null unique,
+    imgSpell varchar(24) not null unique
 );
 
-INSERT INTO tbSpell(nomSpell, imgSpell)
-	values ('Curar', 'SummonerHeal'),
-		   ('Fantasma', 'SummonerHaste'),
-		   ('Barreira', 'SummonerBarrier'),
-		   ('Exaustão', 'SummonerExhaust'),
-		   ('Flash', 'SummonerFlash'),
-		   ('Teleporte', 'SummonerTeleport'),
-		   ('Golpear', 'SummonerSmite'),
-		   ('Purificar', 'SummonerBoost'),
-		   ('Incendiar', 'SummonerDot');
+INSERT INTO tbSpell(nomSpell, keySpell, imgSpell)
+	values ('Curar', 'Heal', 'SummonerHeal'),
+		   ('Fantasma', 'Ghost', 'SummonerHaste'),
+		   ('Barreira', 'Barrier', 'SummonerBarrier'),
+		   ('Exaustão', 'Exhaust', 'SummonerExhaust'),
+		   ('Flash', 'Flash', 'SummonerFlash'),
+		   ('Teleporte', 'Teleport', 'SummonerTeleport'),
+		   ('Golpear', 'Smite', 'SummonerSmite'),
+		   ('Purificar', 'Cleanse', 'SummonerBoost'),
+		   ('Incendiar', 'Ignite', 'SummonerDot');
            
 # TABELA PAR DE FEITIÇOS PARA CAMPEÃO
 CREATE TABLE tbPairSpells(
@@ -33,262 +34,257 @@ CREATE TABLE tbPairSpells(
 # TABELA ITENS
 CREATE TABLE tbItem(
 	idItem smallint primary key auto_increment,
-    nomItem varchar(48) not null,
-    imgItem smallint not null
+    nomItem varchar(48) not null unique,
+    keyItem varchar(48) not null unique,
+    imgItem smallint not null unique
 );
 
-INSERT INTO tbItem(nomItem, imgItem)
-	values  ('Botas', '1001'),
-			('Amuleto da Fada', '1004'),
-			('Pérola do Rejuvenescimento', '1006'),
-			('Cinto do Gigante', '1011'),
-			('Capa da Agilidade', '1018'),
-			('Varinha Explosiva', '1026'),
-			('Cristal de Safira', '1027'),
-			('Cristal de Rubi', '1028'),
-			('Couraça de Pano', '1029'),
-			('Cota de Malha', '1031'),
-			('Manto Anula-Magia', '1033'),
-			('Lâmina Cálida', '1035'),
-			('Espada Longa', '1036'),
-			('Picareta', '1037'),
-			('Espada G. p. C.', '1038'),
-			('Lâmina Álgida', '1039'),
-			('Lâmina de Obsidiana', '1040'),
-			('Adaga', '1042'),
-			('Arco Recurvo', '1043'),
-			('Tomo Amplificador', '1052'),
-			('Cetro Vampírico', '1053'),
-			('Escudo de Doran', '1054'),
-			('Lâmina de Doran', '1055'),
-			('Anel de Doran', '1056'),
-			('Capa Negatron', '1057'),
-			('Bastão Desnecessariamente Grande', '1058'),
-			('Lacre Sombrio', '1082'),
-			('Abatedora', '1083'),
-			('Projétil Perfurante', '1500'),
-			('Fortificação', '1501'),
-			('Armadura Reforçada', '1502'),
-			('Olho do Vigia', '1503'),
-			('Vanguarda', '1504'),
-			('Bastão Eletrizante', '1505'),
-			('Armadura Reforçada', '1506'),
-			('Sobrecarga', '1507'),
-			('Meias Antitorre', '1508'),
-			('Entusiasmo', '1509'),
-			('Entusiasmo Sem Noção', '1510'),
-			('Armadura Super Mech', '1511'),
-			('Campo de Força Super Mech', '1512'),
-			('Barricada da Torre', '1515'),
-			('Recompensa de estrutura', '1516'),
-			('Recompensa de estrutura', '1517'),
-			('Recompensa de estrutura', '1518'),
-			('Recompensa de estrutura', '1519'),
-			('Poção de Vida', '2003'),
-			('Biscoito Total da Determinação Eterna', '2010'),
-			('Estilhaço de Kircheis', '2015'),
-			('Poção com Refil', '2031'),
-			('Poção Corrupta', '2033'),
-			('Berrante do Guardião', '2051'),
-			('Poritos', '2052'),
-			('Sentinela de Controle', '2055'),
-			('Hino Bélico de Shurelya', '2065'),
-			('Elixir de Ferro', '2138'),
-			('Elixir da Feitiçaria', '2139'),
-			('Elixir da Ira', '2140'),
-			('Pulverizador de Tropas', '2403'),
-			('Cronômetro Inicial', '2419'),
-			('Cronômetro', '2420'),
-			('Cronômetro Quebrado', '2421'),
-			('Botas Levemente Mágicas', '2422'),
-			('Cronômetro Perfeitamente Calculado', '2423'),
-			('Cronômetro Quebrado', '2424'),
-			('Proteção Imutável', '3001'),
-			('Cajado do Arcanjo', '3003'),
-			('Manamune', '3004'),
-			('Grevas do Berserker', '3006'),
-			('Botas da Rapidez', '3009'),
-			('Putrificador Quimtec', '3011'),
-			('Sapatos do Feiticeiro', '3020'),
-			('Broquel Glacial', '3024'),
-			('Anjo Guardião', '3026'),
-			('Gume do Infinito', '3031'),
-			('Lembrete Mortal', '3033'),
-			('Último Sussurro', '3035'),
-			('Lembranças do Lorde Dominik', '3036'),
-			('Abraço de Seraph', '3040'),
-			('Ladrão de Almas de Mejai', '3041'),
-			('Muramana', '3042'),
-			('Fago', '3044'),
-			('Dançarina Fantasma', '3046'),
-			('Botas Galvanizadas de Aço', '3047'),
-			('Convergência de Zeke', '3050'),
-			('Machado Termestre', '3051'),
-			('Sinal de Sterak', '3053'),
-			('Fulgor', '3057'),
-			('Semblante Espiritual', '3065'),
-			('Couraça Lunar Alada', '3066'),
-			('Gema Ardente', '3067'),
-			('Égide de Fogo Solar', '3068'),
-			('Lágrima da Deusa', '3070'),
-			('Cutelo Negro', '3071'),
-			('Sedenta por Sangue', '3072'),
-			('Hidra Raivosa', '3074'),
-			('Armadura de Espinhos', '3075'),
-			('Colete Espinhoso', '3076'),
-			('Tiamat', '3077'),
-			('Força da Trindade', '3078'),
-			('Carapaça do Vigia', '3082'),
-			('Armadura de Warmog', '3083'),
-			('Furacão de Runaan', '3085'),
-			('Zelo', '3086'),
-			('Capuz da Morte de Rabadon', '3089'),
-			('Limite da Razão', '3091'),
-			('Canhão Fumegante', '3094'),
-			('Chuva de Canivete', '3095'),
-			('Perdição de Lich', '3100'),
-			('Véu da Banshee', '3102'),
-			('Égide da Legião', '3105'),
-			('Redenção', '3107'),
-			('Códex Demoníaco', '3108'),
-			('Juramento do Cavaleiro', '3109'),
-			('Coração Congelado', '3110'),
-			('Passos de Mercúrio', '3111'),
-			('Orbe do Guardião', '3112'),
-			('Cintilação Etérea', '3113'),
-			('Ídolo Proibido', '3114'),
-			('Dente de Na\'Shor', '3115'),
-			('Cetro de Cristal de Rylai', '3116'),
-			('Botas da Mobilidade', '3117'),
-			('Aproximação Invernal', '3119'),
-			('Fimbulwinter', '3121'),
-			('Chamado do Carrasco', '3123'),
-			('Lâmina da Fúria de Guinsoo', '3124'),
-			('Martelo de Guerra de Caulfield', '3133'),
-			('Punhal Serrilhado', '3134'),
-			('Cajado do Vazio', '3135'),
-			('Cimitarra Mercurial', '3139'),
-			('Bandana de Mercúrio', '3140'),
-			('Lâmina Fantasma de Youmuu', '3142'),
-			('Presságio de Randuin', '3143'),
-			('Alternador Hextec', '3145'),
-			('Explocinturão Hextec', '3152'),
-			('Espada do Rei Destruído', '3153'),
-			('Hexdrinker', '3155'),
-			('Mandíbula de Malmortius', '3156'),
-			('Ampulheta de Zhonya', '3157'),
-			('Botas Ionianas da Lucidez', '3158'),
-			('Morellonomicon', '3165'),
-			('Lâmina do Guardião', '3177'),
-			('Glaive Sombria', '3179'),
-			('Quebracascos', '3181'),
-			('Martelo do Guardião', '3184'),
-			('Medalhão dos Solari de Ferro', '3190'),
-			('Armaguarda da Caçadora', '3191'),
-			('Placa Gargolítica', '3193'),
-			('Capuz do Espectro', '3211'),
-			('Bênção de Mikael', '3222'),
-			('Efígie do Espantalho', '3330'),
-			('Sentinela Invisível', '3340'),
-			('Alteração Vidente', '3363'),
-			('Lente do Oráculo', '3364'),
-			('Sua Parte', '3400'),
-			('Turíbulo Ardente', '3504'),
-			('Colhedor de Essência', '3508'),
-			('Olho do Arauto', '3513'),
-			('Lança Negra da Kalista', '3599'),
-			('Lança Negra da Kalista', '3600'),
-			('Couraça do Defunto', '3742'),
-			('Hidra Titânica', '3748'),
-			('Braçadeira Cristalina', '3801'),
-			('Capítulo Perdido', '3802'),
-			('Limiar da Noite', '3814'),
-			('Gume do Ladrão Arcano', '3850'),
-			('Presas Gélidas', '3851'),
-			('Estilhaço de Gelo Verdadeiro', '3853'),
-			('Guarda-ombros de Aço', '3854'),
-			('Espaldeiras de Aço Rúnico', '3855'),
-			('Ombreiras de Pedralva', '3857'),
-			('Escudo Relicário', '3858'),
-			('Broquel de Targon', '3859'),
-			('Bastião da Montanha', '3860'),
-			('Foice Espectral', '3862'),
-			('Tormento Crescente', '3863'),
-			('Foice da Névoa Negra', '3864'),
-			('Orbe do Oblívio', '3916'),
-			('Mandato Imperial', '4005'),
-			('Força da Natureza', '4401'),
-			('A Espátula Dourada', '4403'),
-			('Foco do Horizonte', '4628'),
-			('Ímpeto Cósmico', '4629'),
-			('Joia da Ruína', '4630'),
-			('Barreira Verdejante', '4632'),
-			('Criafendas', '4633'),
-			('Olhar Sanguessuga', '4635'),
-			('Colhedor Noturno', '4636'),
-			('Abraço Demoníaco', '4637'),
-			('Pedra-vigia Observadora', '4638'),
-			('Pedra-vigia Inspiradora', '4641'),
-			('Espelho de Bandópolis', '4642'),
-			('Pedra-vigia Vigilante', '4643'),
-			('Coroa da Rainha Despedaçada', '4644'),
-			('Chama Sombria', '4645'),
-			('Chicote Ferrifarpo', '6029'),
-			('Alvorada de Pratânia', '6035'),
-			('Dança da Morte', '6333'),
-			('Serrespada Quimiopunk', '6609'),
-			('Cajado Aquafluxo', '6616'),
-			('Regenerador de Pedra Lunar', '6617'),
-			('Hemodrenário', '6630'),
-			('Quebrapassos', '6631'),
-			('Ruptor Divino', '6632'),
-			('Angústia de Liandry', '6653'),
-			('Tormenta de Luden', '6655'),
-			('Glacieterno', '6656'),
-			('Brasa de Bami', '6660'),
-			('Manopla do Raio de Gelo', '6662'),
-			('Quimiotanque Turbo', '6664'),
-			('Aljava Vespertina', '6670'),
-			('Força do Vendaval', '6671'),
-			('Mata-Cráquens', '6672'),
-			('Arco-escudo Imortal', '6673'),
-			('Adagas Rápidas Navori', '6675'),
-			('A Coletora', '6676'),
-			('Faca da Fúria', '6677'),
-			('Crepúsculo de Draktharr', '6691'),
-			('Eclipse', '6692'),
-			('Garra do Espreitador', '6693'),
-			('Rancor de Serylda', '6694'),
-			('Presa da Serpente', '6695'),
-			('Arco do Axioma', '6696'),
-			('Garra da Ave de Areia', '7000'),
-			('Sizígia', '7001'),
-			('Escultor Sombrio de Draktharr', '7002'),
-			('Hexperimento Turbocarregado', '7003'),
-			('Insígnia da Fornalha', '7004'),
-			('Sufocamento Gélido', '7005'),
-			('Tufão', '7006'),
-			('Sacrifício da Serpente', '7007'),
-			('Sentinela Sanguinária', '7008'),
-			('Maldição de Icathia', '7009'),
-			('Vesperal', '7010'),
-			('Aeropropulsor Aprimorado', '7011'),
-			('Lamento de Liandry', '7012'),
-			('Olho de Luden', '7013'),
-			('Inverno Eterno', '7014'),
-			('Fome Incessante', '7015'),
-			('Assolador de Sonhos', '7016'),
-			('Deicídio', '7017'),
-			('Força do Infinito', '7018'),
-			('Relicário do Alvorecer Dourado', '7019'),
-			('Réquiem de Shurelya', '7020'),
-			('Conjurador Estelar', '7021'),
-			('Centro de Comando', '7022'),
-			('Equinócio', '7023'),
-			('Cesura', '7024'),
-			('Gangplank Placeholder', '7050'),
-			('Correntes de Anátema', '8001'),
-			('Máscara Abissal', '8020');
+INSERT INTO tbItem(nomItem, keyitem, imgItem)
+	values  ('Botas', 'botas', 1001),
+			('Amuleto da Fada', 'amuletodafada', 1004),
+			('Pérola do Rejuvenescimento', 'peroladorejuvenescimento', 1006),
+			('Cinto do Gigante', 'cintodogigante', 1011),
+			('Capa da Agilidade', 'capadaagilidade', 1018),
+			('Varinha Explosiva', 'varinhaexplosiva', 1026),
+			('Cristal de Safira', 'cristaldesafira', 1027),
+			('Cristal de Rubi', 'cristalderubi', 1028),
+			('Couraça de Pano', 'couracadepano', 1029),
+			('Cota de Malha', 'cotademalha', 1031),
+			('Manto Anula-Magia', 'mantoanula-magia', 1033),
+			('Lâmina Cálida', 'laminacalida', 1035),
+			('Espada Longa', 'espadalonga', 1036),
+			('Picareta', 'picareta', 1037),
+			('Espada G. p. C.', 'espadag.p.c.', 1038),
+			('Lâmina Álgida', 'laminaalgida', 1039),
+			('Lâmina de Obsidiana', 'laminadeobsidiana', 1040),
+			('Adaga', 'adaga', 1042),
+			('Arco Recurvo', 'arcorecurvo', 1043),
+			('Tomo Amplificador', 'tomoamplificador', 1052),
+			('Cetro Vampírico', 'cetrovampirico', 1053),
+			('Escudo de Doran', 'escudodedoran', 1054),
+			('Lâmina de Doran', 'laminadedoran', 1055),
+			('Anel de Doran', 'aneldedoran', 1056),
+			('Capa Negatron', 'capanegatron', 1057),
+			('Bastão Desnecessariamente Grande', 'bastaodesnecessariamentegrande', 1058),
+			('Lacre Sombrio', 'lacresombrio', 1082),
+			('Abatedora', 'abatedora', 1083),
+			('Projétil Perfurante', 'projetilperfurante', 1500),
+			('Fortificação', 'fortificacao', 1501),
+			('Olho do Vigia', 'olhodovigia', 1503),
+			('Vanguarda', 'vanguarda', 1504),
+			('Bastão Eletrizante', 'bastaoeletrizante', 1505),
+			('Armadura Reforçada', 'armadurareforcada', 1506),
+			('Sobrecarga', 'sobrecarga', 1507),
+			('Meias Antitorre', 'meiasantitorre', 1508),
+			('Entusiasmo', 'entusiasmo', 1509),
+			('Entusiasmo Sem Noção', 'entusiasmosemnocao', 1510),
+			('Armadura Super Mech', 'armadurasupermech', 1511),
+			('Campo de Força Super Mech', 'campodeforcasupermech', 1512),
+			('Barricada da Torre', 'barricadadatorre', 1515),
+			('Recompensa de estrutura', 'recompensadeestrutura', 1516),
+			('Poção de Vida', 'pocaodevida', 2003),
+			('Biscoito Total da Determinação Eterna', 'biscoitototaldadeterminacaoeterna', 2010),
+			('Estilhaço de Kircheis', 'estilhacodekircheis', 2015),
+			('Poção com Refil', 'pocaocomrefil', 2031),
+			('Poção Corrupta', 'pocaocorrupta', 2033),
+			('Berrante do Guardião', 'berrantedoguardiao', 2051),
+			('Poritos', 'poritos', 2052),
+			('Sentinela de Controle', 'sentineladecontrole', 2055),
+			('Hino Bélico de Shurelya', 'hinobelicodeshurelya', 2065),
+			('Elixir de Ferro', 'elixirdeferro', 2138),
+			('Elixir da Feitiçaria', 'elixirdafeiticaria', 2139),
+			('Elixir da Ira', 'elixirdaira', 2140),
+			('Pulverizador de Tropas', 'pulverizadordetropas', 2403),
+			('Cronômetro Inicial', 'cronometroinicial', 2419),
+			('Cronômetro', 'cronometro', 2420),
+			('Botas Levemente Mágicas', 'botaslevementemagicas', 2422),
+			('Cronômetro Perfeitamente Calculado', 'cronometroperfeitamentecalculado', 2423),
+			('Cronômetro Quebrado', 'cronometroquebrado', 2424),
+			('Proteção Imutável', 'protecaoimutavel', 3001),
+			('Cajado do Arcanjo', 'cajadodoarcanjo', 3003),
+			('Manamune', 'manamune', 3004),
+			('Grevas do Berserker', 'grevasdoberserker', 3006),
+			('Botas da Rapidez', 'botasdarapidez', 3009),
+			('Putrificador Quimtec', 'putrificadorquimtec', 3011),
+			('Sapatos do Feiticeiro', 'sapatosdofeiticeiro', 3020),
+			('Broquel Glacial', 'broquelglacial', 3024),
+			('Anjo Guardião', 'anjoguardiao', 3026),
+			('Gume do Infinito', 'gumedoinfinito', 3031),
+			('Lembrete Mortal', 'lembretemortal', 3033),
+			('Último Sussurro', 'ultimosussurro', 3035),
+			('Lembranças do Lorde Dominik', 'lembrancasdolordedominik', 3036),
+			('Abraço de Seraph', 'abracodeseraph', 3040),
+			('Ladrão de Almas de Mejai', 'ladraodealmasdemejai', 3041),
+			('Muramana', 'muramana', 3042),
+			('Fago', 'fago', 3044),
+			('Dançarina Fantasma', 'dancarinafantasma', 3046),
+			('Botas Galvanizadas de Aço', 'botasgalvanizadasdeaco', 3047),
+			('Convergência de Zeke', 'convergenciadezeke', 3050),
+			('Machado Termestre', 'machadotermestre', 3051),
+			('Sinal de Sterak', 'sinaldesterak', 3053),
+			('Fulgor', 'fulgor', 3057),
+			('Semblante Espiritual', 'semblanteespiritual', 3065),
+			('Couraça Lunar Alada', 'couracalunaralada', 3066),
+			('Gema Ardente', 'gemaardente', 3067),
+			('Égide de Fogo Solar', 'egidedefogosolar', 3068),
+			('Lágrima da Deusa', 'lagrimadadeusa', 3070),
+			('Cutelo Negro', 'cutelonegro', 3071),
+			('Sedenta por Sangue', 'sedentaporsangue', 3072),
+			('Hidra Raivosa', 'hidraraivosa', 3074),
+			('Armadura de Espinhos', 'armaduradeespinhos', 3075),
+			('Colete Espinhoso', 'coleteespinhoso', 3076),
+			('Tiamat', 'tiamat', 3077),
+			('Força da Trindade', 'forcadatrindade', 3078),
+			('Carapaça do Vigia', 'carapacadovigia', 3082),
+			('Armadura de Warmog', 'armaduradewarmog', 3083),
+			('Furacão de Runaan', 'furacaoderunaan', 3085),
+			('Zelo', 'zelo', 3086),
+			('Capuz da Morte de Rabadon', 'capuzdamortederabadon', 3089),
+			('Limite da Razão', 'limitedarazao', 3091),
+			('Canhão Fumegante', 'canhaofumegante', 3094),
+			('Chuva de Canivete', 'chuvadecanivete', 3095),
+			('Perdição de Lich', 'perdicaodelich', 3100),
+			('Véu da Banshee', 'veudabanshee', 3102),
+			('Égide da Legião', 'egidedalegiao', 3105),
+			('Redenção', 'redencao', 3107),
+			('Códex Demoníaco', 'codexdemoniaco', 3108),
+			('Juramento do Cavaleiro', 'juramentodocavaleiro', 3109),
+			('Coração Congelado', 'coracaocongelado', 3110),
+			('Passos de Mercúrio', 'passosdemercurio', 3111),
+			('Orbe do Guardião', 'orbedoguardiao', 3112),
+			('Cintilação Etérea', 'cintilacaoeterea', 3113),
+			('Ídolo Proibido', 'idoloproibido', 3114),
+			('Dente de Na\'Shor', 'b"dentedenashor"', 3115),
+			('Cetro de Cristal de Rylai', 'cetrodecristalderylai', 3116),
+			('Botas da Mobilidade', 'botasdamobilidade', 3117),
+			('Aproximação Invernal', 'aproximacaoinvernal', 3119),
+			('Fimbulwinter', 'fimbulwinter', 3121),
+			('Chamado do Carrasco', 'chamadodocarrasco', 3123),
+			('Lâmina da Fúria de Guinsoo', 'laminadafuriadeguinsoo', 3124),
+			('Martelo de Guerra de Caulfield', 'martelodeguerradecaulfield', 3133),
+			('Punhal Serrilhado', 'punhalserrilhado', 3134),
+			('Cajado do Vazio', 'cajadodovazio', 3135),
+			('Cimitarra Mercurial', 'cimitarramercurial', 3139),
+			('Bandana de Mercúrio', 'bandanademercurio', 3140),
+			('Lâmina Fantasma de Youmuu', 'laminafantasmadeyoumuu', 3142),
+			('Presságio de Randuin', 'pressagioderanduin', 3143),
+			('Alternador Hextec', 'alternadorhextec', 3145),
+			('Explocinturão Hextec', 'explocinturaohextec', 3152),
+			('Espada do Rei Destruído', 'espadadoreidestruido', 3153),
+			('Hexdrinker', 'hexdrinker', 3155),
+			('Mandíbula de Malmortius', 'mandibulademalmortius', 3156),
+			('Ampulheta de Zhonya', 'ampulhetadezhonya', 3157),
+			('Botas Ionianas da Lucidez', 'botasionianasdalucidez', 3158),
+			('Morellonomicon', 'morellonomicon', 3165),
+			('Lâmina do Guardião', 'laminadoguardiao', 3177),
+			('Glaive Sombria', 'glaivesombria', 3179),
+			('Quebracascos', 'quebracascos', 3181),
+			('Martelo do Guardião', 'martelodoguardiao', 3184),
+			('Medalhão dos Solari de Ferro', 'medalhaodossolarideferro', 3190),
+			('Armaguarda da Caçadora', 'armaguardadacacadora', 3191),
+			('Placa Gargolítica', 'placagargolitica', 3193),
+			('Capuz do Espectro', 'capuzdoespectro', 3211),
+			('Bênção de Mikael', 'bencaodemikael', 3222),
+			('Efígie do Espantalho', 'efigiedoespantalho', 3330),
+			('Sentinela Invisível', 'sentinelainvisivel', 3340),
+			('Alteração Vidente', 'alteracaovidente', 3363),
+			('Lente do Oráculo', 'lentedooraculo', 3364),
+			('Sua Parte', 'suaparte', 3400),
+			('Turíbulo Ardente', 'turibuloardente', 3504),
+			('Colhedor de Essência', 'colhedordeessencia', 3508),
+			('Olho do Arauto', 'olhodoarauto', 3513),
+			('Lança Negra da Kalista', 'lancanegradakalista', 3600),
+			('Couraça do Defunto', 'couracadodefunto', 3742),
+			('Hidra Titânica', 'hidratitanica', 3748),
+			('Braçadeira Cristalina', 'bracadeiracristalina', 3801),
+			('Capítulo Perdido', 'capituloperdido', 3802),
+			('Limiar da Noite', 'limiardanoite', 3814),
+			('Gume do Ladrão Arcano', 'gumedoladraoarcano', 3850),
+			('Presas Gélidas', 'presasgelidas', 3851),
+			('Estilhaço de Gelo Verdadeiro', 'estilhacodegeloverdadeiro', 3853),
+			('Guarda-ombros de Aço', 'guarda-ombrosdeaco', 3854),
+			('Espaldeiras de Aço Rúnico', 'espaldeirasdeacorunico', 3855),
+			('Ombreiras de Pedralva', 'ombreirasdepedralva', 3857),
+			('Escudo Relicário', 'escudorelicario', 3858),
+			('Broquel de Targon', 'broqueldetargon', 3859),
+			('Bastião da Montanha', 'bastiaodamontanha', 3860),
+			('Foice Espectral', 'foiceespectral', 3862),
+			('Tormento Crescente', 'tormentocrescente', 3863),
+			('Foice da Névoa Negra', 'foicedanevoanegra', 3864),
+			('Orbe do Oblívio', 'orbedooblivio', 3916),
+			('Mandato Imperial', 'mandatoimperial', 4005),
+			('Força da Natureza', 'forcadanatureza', 4401),
+			('A Espátula Dourada', 'aespatuladourada', 4403),
+			('Foco do Horizonte', 'focodohorizonte', 4628),
+			('Ímpeto Cósmico', 'impetocosmico', 4629),
+			('Joia da Ruína', 'joiadaruina', 4630),
+			('Barreira Verdejante', 'barreiraverdejante', 4632),
+			('Criafendas', 'criafendas', 4633),
+			('Olhar Sanguessuga', 'olharsanguessuga', 4635),
+			('Colhedor Noturno', 'colhedornoturno', 4636),
+			('Abraço Demoníaco', 'abracodemoniaco', 4637),
+			('Pedra-vigia Observadora', 'pedra-vigiaobservadora', 4638),
+			('Pedra-vigia Inspiradora', 'pedra-vigiainspiradora', 4641),
+			('Espelho de Bandópolis', 'espelhodebandopolis', 4642),
+			('Pedra-vigia Vigilante', 'pedra-vigiavigilante', 4643),
+			('Coroa da Rainha Despedaçada', 'coroadarainhadespedacada', 4644),
+			('Chama Sombria', 'chamasombria', 4645),
+			('Chicote Ferrifarpo', 'chicoteferrifarpo', 6029),
+			('Alvorada de Pratânia', 'alvoradadepratania', 6035),
+			('Dança da Morte', 'dancadamorte', 6333),
+			('Serrespada Quimiopunk', 'serrespadaquimiopunk', 6609),
+			('Cajado Aquafluxo', 'cajadoaquafluxo', 6616),
+			('Regenerador de Pedra Lunar', 'regeneradordepedralunar', 6617),
+			('Hemodrenário', 'hemodrenario', 6630),
+			('Quebrapassos', 'quebrapassos', 6631),
+			('Ruptor Divino', 'ruptordivino', 6632),
+			('Angústia de Liandry', 'angustiadeliandry', 6653),
+			('Tormenta de Luden', 'tormentadeluden', 6655),
+			('Glacieterno', 'glacieterno', 6656),
+			('Brasa de Bami', 'brasadebami', 6660),
+			('Manopla do Raio de Gelo', 'manopladoraiodegelo', 6662),
+			('Quimiotanque Turbo', 'quimiotanqueturbo', 6664),
+			('Aljava Vespertina', 'aljavavespertina', 6670),
+			('Força do Vendaval', 'forcadovendaval', 6671),
+			('Mata-Cráquens', 'mata-craquens', 6672),
+			('Arco-escudo Imortal', 'arco-escudoimortal', 6673),
+			('Adagas Rápidas Navori', 'adagasrapidasnavori', 6675),
+			('A Coletora', 'acoletora', 6676),
+			('Faca da Fúria', 'facadafuria', 6677),
+			('Crepúsculo de Draktharr', 'crepusculodedraktharr', 6691),
+			('Eclipse', 'eclipse', 6692),
+			('Garra do Espreitador', 'garradoespreitador', 6693),
+			('Rancor de Serylda', 'rancordeserylda', 6694),
+			('Presa da Serpente', 'presadaserpente', 6695),
+			('Arco do Axioma', 'arcodoaxioma', 6696),
+			('Garra da Ave de Areia', 'garradaavedeareia', 7000),
+			('Sizígia', 'sizigia', 7001),
+			('Escultor Sombrio de Draktharr', 'escultorsombriodedraktharr', 7002),
+			('Hexperimento Turbocarregado', 'hexperimentoturbocarregado', 7003),
+			('Insígnia da Fornalha', 'insigniadafornalha', 7004),
+			('Sufocamento Gélido', 'sufocamentogelido', 7005),
+			('Tufão', 'tufao', 7006),
+			('Sacrifício da Serpente', 'sacrificiodaserpente', 7007),
+			('Sentinela Sanguinária', 'sentinelasanguinaria', 7008),
+			('Maldição de Icathia', 'maldicaodeicathia', 7009),
+			('Vesperal', 'vesperal', 7010),
+			('Aeropropulsor Aprimorado', 'aeropropulsoraprimorado', 7011),
+			('Lamento de Liandry', 'lamentodeliandry', 7012),
+			('Olho de Luden', 'olhodeluden', 7013),
+			('Inverno Eterno', 'invernoeterno', 7014),
+			('Fome Incessante', 'fomeincessante', 7015),
+			('Assolador de Sonhos', 'assoladordesonhos', 7016),
+			('Deicídio', 'deicidio', 7017),
+			('Força do Infinito', 'forcadoinfinito', 7018),
+			('Relicário do Alvorecer Dourado', 'relicariodoalvorecerdourado', 7019),
+			('Réquiem de Shurelya', 'requiemdeshurelya', 7020),
+			('Conjurador Estelar', 'conjuradorestelar', 7021),
+			('Centro de Comando', 'centrodecomando', 7022),
+			('Equinócio', 'equinocio', 7023),
+			('Cesura', 'cesura', 7024),
+			('Gangplank Placeholder', 'gangplankplaceholder', 7050),
+			('Correntes de Anátema', 'correntesdeanatema', 8001),
+			('Máscara Abissal', 'mascaraabissal', 8020);
 
 # TABELA BUILD INICIAL
 CREATE TABLE tbBuildInicial(
@@ -347,8 +343,8 @@ CREATE TABLE tbBuild(
 # TABELA ÁRVORES DE RUNAS
 CREATE TABLE tbTree(
 	idTree smallint primary key auto_increment,
-    nomTree varchar(16) not null,
-    keyTree varchar(24) not null
+    nomTree varchar(16) not null unique,
+    keyTree varchar(24) not null unique
 );
 
 INSERT INTO tbTree(nomTree, keyTree)
@@ -361,78 +357,89 @@ INSERT INTO tbTree(nomTree, keyTree)
 CREATE TABLE tbRune(
 	idRune smallint primary key auto_increment,
 	idTreeRune smallint not null,
-    nomRune varchar(32) not null,
-    imgRune varchar(32) not null,
+    nomRune varchar(32) not null unique,
+    keyRune varchar(32) not null unique,
+    imgRune varchar(32) not null unique,
     
     foreign key(idTreeRune) references tbTree(idTree)
 );
 
-INSERT INTO tbRune(idTreeRune, nomRune, imgRune)
-	values (1, 'Eletrocutar', 'Electrocute'),
-		   (1, 'Predador', 'Predator'),
-		   (1, 'Colheita Sombria', 'DarkHarvest'),
-		   (1, 'Chuva de Lâminas', 'HailOfBlades'),
-		   (1, 'Golpe Desleal', 'CheapShot'),
-		   (1, 'Gosto de Sangue', 'TasteOfBlood'),
-		   (1, 'Impacto Repentino', 'SuddenImpact'),
-		   (1, 'Sentinela Zumbi', 'ZombieWard'),
-		   (1, 'Poro Fantasma', 'GhostPoro'),
-		   (1, 'Globos Oculares', 'EyeballCollection'),
-		   (1, 'Caçador de Tesouros', 'TreasureHunter'),
-		   (1, 'Caça Ardilosa', 'IngeniousHunter'),
-		   (1, 'Caça Incansável', 'RelentlessHunter'),
-		   (1, 'Caça Suprema', 'UltimateHunter'),
+INSERT INTO tbRune(idTreeRune, nomRune, keyRune, imgRune)
+	values (1, 'Eletrocutar', 'eletrocutar', 'Electrocute'),
+		   (1, 'Predador', 'predador', 'Predator'),
+		   (1, 'Colheita Sombria', 'colheitasombria', 'DarkHarvest'),
+		   (1, 'Chuva de Lâminas', 'chuvadelaminas', 'HailOfBlades'),
            
-		   (2, 'Aprimoramento Glacial', 'GlacialAugment'),
-		   (2, 'Livro de Feitiços Deslacrado', 'UnsealedSpellbook'),
-		   (2, 'Primeiro Ataque', 'FirstStrike'),
-		   (2, 'Flashtração Hextec', 'HextechFlashtraption'),
-		   (2, 'Calçados Mágicos', 'MagicalFootwear'),
-		   (2, 'Sincronia Perfeita', 'PerfectTiming'),
-		   (2, 'Mercado do Futuro', 'FuturesMarket'),
-		   (2, 'Pulverizador de Tropas', 'MinionDematerializer'),
-		   (2, 'Entrega de Biscoitos', 'BiscuitDelivery'),
-		   (2, 'Perspicácia Cósmica', 'CosmicInsight'),
-		   (2, 'Velocidade de Aproximação', 'ApproachVelocity'),
-		   (2, 'Tônico de Distorção no Tempo', 'TimeWarpTonic'),
+		   (1, 'Golpe Desleal', 'golpedesleal', 'CheapShot'),
+		   (1, 'Gosto de Sangue', 'gostodesangue', 'TasteOfBlood'),
+		   (1, 'Impacto Repentino', 'impactorepentino', 'SuddenImpact'),
            
-		   (3, 'Pressione o Ataque', 'PressTheAttack'),
-		   (3, 'Ritmo Fatal', 'LethalTempo'),
-		   (3, 'Agilidade nos Pés', 'FleetFootwork'),
-		   (3, 'Conquistador', 'Conqueror'),
-		   (3, 'Cura Excessiva', 'Overheal'),
-		   (3, 'Triunfo', 'Triumph'),
-		   (3, 'Presença de Espírito', 'PresenceOfMind'),
-		   (3, 'Lenda: Espontaneidade', 'LegendAlacrity'),
-		   (3, 'Lenda: Tenacidade', 'LegendTenacity'),
-		   (3, 'Lenda: Linhagem', 'LegendBloodline'),
-		   (3, 'Golpe de Misericórdia', 'CoupDeGrace'),
-		   (3, 'Dilacerar', 'CutDown'),
-		   (3, 'Até a Morte', 'LastStand'),
+		   (1, 'Sentinela Zumbi', 'sentinelazumbi', 'ZombieWard'),
+		   (1, 'Poro Fantasma', 'porofantasma', 'GhostPoro'),
+		   (1, 'Globos Oculares', 'globosoculares', 'EyeballCollection'),
            
-		   (4, 'Aperto dos Mortos-Vivos', 'GraspOfTheUndying'),
-		   (4, 'Pós-choque', 'Aftershock'),
-		   (4, 'Guardião', 'Guardian'),
-		   (4, 'Demolir', 'Demolish'),
-		   (4, 'Fonte da Vida', 'FontOfLife'),
-		   (4, 'Golpe de Escudo', 'ShieldBash'),
-		   (4, 'Condicionamento', 'Conditioning'),
-		   (4, 'Ventos Revigorantes', 'SecondWind'),
-		   (4, 'Osso Revestido', 'BonePlating'),
-		   (4, 'Crescimento Excessivo', 'Overgrowth'),
-		   (4, 'Revitalizar', 'Revitalize'),
-		   (4, 'Inabalável', 'Unflinching');
+		   (1, 'Caçador de Tesouros', 'cacadordetesouros', 'TreasureHunter'),
+		   (1, 'Caça Ardilosa', 'cacaardilosa', 'IngeniousHunter'),
+		   (1, 'Caça Incansável', 'cacaincansavel', 'RelentlessHunter'),
+		   (1, 'Caça Suprema', 'cacasuprema', 'UltimateHunter'),
+           ####################
+		   (2, 'Aprimoramento Glacial', 'aprimoramentoglacial', 'GlacialAugment'),
+		   (2, 'Livro de Feitiços Deslacrado', 'livrodefeiticosdeslacrado', 'UnsealedSpellbook'),
+		   (2, 'Primeiro Ataque', 'primeiroataque', 'FirstStrike'),
+           
+		   (2, 'Flashtração Hextec', 'flashtracaohextec', 'HextechFlashtraption'),
+		   (2, 'Calçados Mágicos', 'calcadosmagicos', 'MagicalFootwear'),
+		   (2, 'Sincronia Perfeita', 'sincroniaperfeita', 'PerfectTiming'),
+           
+		   (2, 'Mercado do Futuro', 'mercadodofuturo', 'FuturesMarket'),
+		   (2, 'Pulverizador de Tropas', 'pulverizadordetropas', 'MinionDematerializer'),
+		   (2, 'Entrega de Biscoitos', 'entregadebiscoitos', 'BiscuitDelivery'),
+           
+		   (2, 'Perspicácia Cósmica', 'perspicaciacosmica', 'CosmicInsight'),
+		   (2, 'Velocidade de Aproximação', 'velocidadedeaproximacao', 'ApproachVelocity'),
+		   (2, 'Tônico de Distorção no Tempo', 'tonicodedistorcaonotempo', 'TimeWarpTonic'),
+           ####################
+		   (3, 'Pressione o Ataque', 'pressioneoataque', 'PressTheAttack'),
+		   (3, 'Ritmo Fatal', 'ritmofatal', 'LethalTempo'),
+		   (3, 'Agilidade nos Pés', 'agilidadenospes', 'FleetFootwork'),
+		   (3, 'Conquistador', 'conquistador', 'Conqueror'),
+           
+		   (3, 'Cura Excessiva', 'curaexcessiva', 'Overheal'),
+		   (3, 'Triunfo', 'triunfo', 'Triumph'),
+		   (3, 'Presença de Espírito', 'presencadeespirito', 'PresenceOfMind'),
+           
+		   (3, 'Lenda: Espontaneidade', 'lendaespontaneidade', 'LegendAlacrity'),
+		   (3, 'Lenda: Tenacidade', 'lendatenacidade', 'LegendTenacity'),
+		   (3, 'Lenda: Linhagem', 'lendalinhagem', 'LegendBloodline'),
+           
+		   (3, 'Golpe de Misericórdia', 'golpedemisericordia', 'CoupDeGrace'),
+		   (3, 'Dilacerar', 'dilacerar', 'CutDown'),
+		   (3, 'Até a Morte', 'ateamorte', 'LastStand'),
+           ####################
+		   (4, 'Aperto dos Mortos-Vivos', 'apertodosmortos-vivos', 'GraspOfTheUndying'),
+		   (4, 'Pós-choque', 'pos-choque', 'Aftershock'),
+		   (4, 'Guardião', 'guardiao', 'Guardian'),
+           
+		   (4, 'Demolir', 'demolir', 'Demolish'),
+		   (4, 'Fonte da Vida', 'fontedavida', 'FontOfLife'),
+		   (4, 'Golpe de Escudo', 'golpedeescudo', 'ShieldBash'),
+           
+		   (4, 'Condicionamento', 'condicionamento', 'Conditioning'),
+		   (4, 'Ventos Revigorantes', 'ventosrevigorantes', 'SecondWind'),
+		   (4, 'Osso Revestido', 'ossorevestido', 'BonePlating'),
+           
+		   (4, 'Crescimento Excessivo', 'crescimentoexcessivo', 'Overgrowth'),
+		   (4, 'Revitalizar', 'revitalizar', 'Revitalize'),
+		   (4, 'Inabalável', 'inabalavel', 'Unflinching');
 
 # TABELA ÁRVORE PRIMÁRIA
 CREATE TABLE tbPrimTree(
 	idPrimTree smallint primary key auto_increment,
-    idTree smallint not null,
     idRunePrincipal smallint not null,
     idRunePrim smallint not null,
     idRuneSec smallint not null,
     idRuneTerc smallint not null,
     
-    foreign key(idTree) references tbTree(idTree),
     foreign key(idRunePrincipal) references tbRune(idRune),
     foreign key(idRunePrim) references tbRune(idRune),
     foreign key(idRuneSec) references tbRune(idRune),
@@ -442,8 +449,6 @@ CREATE TABLE tbPrimTree(
 # TABELA ÁRVORE SECUNDÁRIA
 CREATE TABLE tbSecTree(
 	idSecTree smallint primary key auto_increment,
-    nomTree varchar(16) not null,
-    keyTree varchar(24) not null,
     idRunePrim smallint not null,
     idRuneSec smallint not null,
     
@@ -474,3 +479,275 @@ CREATE TABLE tbChampion(
     foreign key(idBuild) references tbBuild(idBuild),
     foreign key(idConjRunes) references tbConjRunes(idConjRunes)
 );
+
+DELIMITER $$
+CREATE PROCEDURE spInsertChampion(
+	in $nomChampion varchar(36),
+    in $imgChampion varchar(36),
+    
+	in $keySpell1 varchar(16),
+    in $keySpell2 varchar(16),
+    
+    in $keyItemInicial1 varchar(48),
+    in $keyItemInicial2 varchar(48),
+    in $keyItemInicial3 varchar(48),
+    
+    in $keyItemGeral1 varchar(48),
+    in $keyItemGeral2 varchar(48),
+    in $keyItemGeral3 varchar(48),
+    in $keyItemGeral4 varchar(48),
+    in $keyItemGeral5 varchar(48),
+    in $keyItemGeral6 varchar(48),
+    
+    in $keyItemSituacional1 varchar(48),
+    in $keyItemSituacional2 varchar(48),
+    in $keyItemSituacional3 varchar(48),
+    
+    in $keyRunePrincipal1 varchar(32),
+    in $keyRunePrim1 varchar(32),
+    in $keyRuneSec1 varchar(32),
+    in $keyRuneTerc1 varchar(32),
+    
+    in $keyRunePrim2 varchar(32),
+    in $keyRuneSec2 varchar(32)
+)
+BEGIN
+    DECLARE $idPairSpells smallint;
+	DECLARE $idBuildInicial smallint;
+	DECLARE $idBuildGeral smallint;
+	DECLARE $idBuildSituacional smallint;
+	DECLARE $idBuild smallint;
+	DECLARE $idPrimTree smallint;
+	DECLARE $idSecTree smallint;
+	DECLARE $idConjRunes smallint;
+    
+	IF ($nomChampion or $imgChampion or 
+		$keySpell1 or $keySpell2 or 
+        $keyItemInicial1 or 
+        $keyItemGeral1 or $keyItemGeral2 or $keyItemGeral3 or $keyItemGeral4 or $keyItemGeral5 or $keyItemGeral6 or
+        $keyItemSituacional1 or $keyItemSituacional2 or $keyItemSituacional3) is null THEN
+			SIGNAL SQLSTATE '45000' set MESSAGE_TEXT = 'Valores obrigatórios não podem ser nulos.';
+	END IF;
+    
+    # INSERT SPELL PAIR
+    IF EXISTS(SELECT idSpell FROM tbSpell WHERE keySpell = $keySpell1) and 
+	   EXISTS(SELECT idSpell FROM tbSpell WHERE keySpell = $keySpell2) THEN
+		set $keySpell1 = (SELECT idSpell FROM tbSpell WHERE keySpell = $keySpell1);
+		set $keySpell2 = (SELECT idSpell FROM tbSpell WHERE keySpell = $keySpell2);
+        
+        IF NOT EXISTS(SELECT idPairSpells FROM tbPairSpells WHERE idPrimSpell = $keySpell1 and idSecSpell = $keySpell2) THEN
+			INSERT INTO tbPairSpells(idPrimSpell, idSecSpell)
+				values ($keySpell1, $keySpell2);
+		END IF;
+        
+        set $idPairSpells = (SELECT idPairSpells FROM tbPairSpells 
+								WHERE idPrimSpell = $keySpell1 and 
+									  idSecSpell = $keySpell2 LIMIT 1);
+	ELSE
+		SIGNAL SQLSTATE '45000' set MESSAGE_TEXT = 'Spell inválida.';
+    END IF;
+        
+	# INSERT BUILD INICIAL
+    IF EXISTS(SELECT idItem FROM tbItem WHERE keyItem = $keyItemInicial1) and 
+	   (EXISTS(SELECT idItem FROM tbItem WHERE keyItem = $keyItemInicial2) or $keyItemInicial2 is null) and 
+	   (EXISTS(SELECT idItem FROM tbItem WHERE keyItem = $keyItemInicial3) or $keyItemInicial3 is null) THEN
+		set $keyItemInicial1 = (SELECT idItem FROM tbItem WHERE keyItem = $keyItemInicial1);
+		set $keyItemInicial2 = (SELECT idItem FROM tbItem WHERE keyItem = $keyItemInicial2);
+		set $keyItemInicial3 = (SELECT idItem FROM tbItem WHERE keyItem = $keyItemInicial3);
+        
+        IF NOT EXISTS(SELECT idBuildInicial FROM tbBuildInicial WHERE idItem1 = $keyItemInicial1 and (idItem2 = $keyItemInicial2 or $keyItemInicial2 is null) and idItem3 = $keyItemInicial3 or $keyItemInicial3 is null) THEN
+			INSERT INTO tbBuildInicial(idItem1, idItem2, idItem3)
+				values ($keyItemInicial1, $keyItemInicial2, $keyItemInicial3);
+		END IF;
+        
+        set $idBuildInicial = (SELECT idBuildInicial FROM tbBuildInicial 
+								WHERE idItem1 = $keyItemInicial1 and 
+									  (idItem2 = $keyItemInicial2 or $keyItemInicial2 is null) and 
+                                      (idItem3 = $keyItemInicial3 or $keyItemInicial3 is null) LIMIT 1);
+	ELSE
+		SIGNAL SQLSTATE '45000' set MESSAGE_TEXT = 'Item inicial inválido.';
+    END IF;
+    
+    # INSERT BUILD GERAL
+    IF EXISTS(SELECT idItem FROM tbItem WHERE keyItem = $keyItemGeral1) and 
+	   EXISTS(SELECT idItem FROM tbItem WHERE keyItem = $keyItemGeral2) and 
+	   EXISTS(SELECT idItem FROM tbItem WHERE keyItem = $keyItemGeral3) and 
+	   EXISTS(SELECT idItem FROM tbItem WHERE keyItem = $keyItemGeral4) and 
+	   EXISTS(SELECT idItem FROM tbItem WHERE keyItem = $keyItemGeral5) and 
+	   EXISTS(SELECT idItem FROM tbItem WHERE keyItem = $keyItemGeral6) THEN
+		set $keyItemGeral1 = (SELECT idItem FROM tbItem WHERE keyItem = $keyItemGeral1);
+		set $keyItemGeral2 = (SELECT idItem FROM tbItem WHERE keyItem = $keyItemGeral2);
+		set $keyItemGeral3 = (SELECT idItem FROM tbItem WHERE keyItem = $keyItemGeral3);
+		set $keyItemGeral4 = (SELECT idItem FROM tbItem WHERE keyItem = $keyItemGeral4);
+		set $keyItemGeral5 = (SELECT idItem FROM tbItem WHERE keyItem = $keyItemGeral5);
+		set $keyItemGeral6 = (SELECT idItem FROM tbItem WHERE keyItem = $keyItemGeral6);
+        
+        IF NOT EXISTS(SELECT idBuildGeral FROM tbBuildGeral WHERE idItem1 = $keyItemGeral1 and idItem2 = $keyItemGeral2 and idItem3 = $keyItemGeral3 and idItem4 = $keyItemGeral4 and idItem5 = $keyItemGeral5 and idItem6 = $keyItemGeral6) THEN
+			INSERT INTO tbBuildGeral(idItem1, idItem2, idItem3, idItem4, idItem5, idItem6)
+				values ($keyItemGeral1, $keyItemGeral2, $keyItemGeral3, $keyItemGeral4, $keyItemGeral5, $keyItemGeral6);
+		END IF;
+        
+        set $idBuildGeral = (SELECT idBuildGeral FROM tbBuildGeral 
+								WHERE idItem1 = $keyItemGeral1 and 
+									  idItem2 = $keyItemGeral2 and 
+                                      idItem3 = $keyItemGeral3 and 
+                                      idItem4 = $keyItemGeral4 and 
+                                      idItem5 = $keyItemGeral5 and 
+                                      idItem6 = $keyItemGeral6 LIMIT 1);
+	ELSE
+		SIGNAL SQLSTATE '45000' set MESSAGE_TEXT = 'Item geral inválido.';
+    END IF;
+    
+    # INSERT BUILD SITUACIONAL
+    IF EXISTS(SELECT idItem FROM tbItem WHERE keyItem = $keyItemSituacional1) and 
+	   EXISTS(SELECT idItem FROM tbItem WHERE keyItem = $keyItemSituacional2) and 
+	   EXISTS(SELECT idItem FROM tbItem WHERE keyItem = $keyItemSituacional3) THEN
+		set $keyItemSituacional1 = (SELECT idItem FROM tbItem WHERE keyItem = $keyItemSituacional1);
+		set $keyItemSituacional2 = (SELECT idItem FROM tbItem WHERE keyItem = $keyItemSituacional2);
+		set $keyItemSituacional3 = (SELECT idItem FROM tbItem WHERE keyItem = $keyItemSituacional3);
+        
+        IF NOT EXISTS(SELECT idBuildSituacional FROM tbBuildSituacional WHERE idItem1 = $keyItemSituacional1 and idItem2 = $keyItemSituacional2 and idItem3 = $keyItemSituacional3) THEN
+			INSERT INTO tbBuildSituacional(idItem1, idItem2, idItem3)
+			values ($keyItemSituacional1, $keyItemSituacional2, $keyItemSituacional3);
+		END IF;
+        
+        set $idBuildSituacional = (SELECT idBuildSituacional FROM tbBuildSituacional 
+								WHERE idItem1 = $keyItemSituacional1 and 
+									  idItem2 = $keyItemSituacional2 and 
+                                      idItem3 = $keyItemSituacional3 LIMIT 1);
+	ELSE
+		SIGNAL SQLSTATE '45000' set MESSAGE_TEXT = 'Item situacional inválido.';
+    END IF;
+    
+    INSERT INTO tbBuild(idBuildInicial, idBuildGeral, idBuildSituacional)
+		values ($idBuildInicial, $idBuildGeral, $idBuildSituacional);
+	
+    set $idBuild = (SELECT idBuild FROM tbBuild 
+						WHERE idBuildInicial = $idBuildInicial and
+							  idBuildGeral = $idBuildGeral and 
+                              idBuildSituacional = $idBuildSituacional LIMIT 1);
+    
+    # INSERT ÁRVORE PRIMÁRIA
+    IF EXISTS(SELECT idRune FROM tbRune WHERE keyRune = $keyRunePrincipal1) and 
+	   EXISTS(SELECT idRune FROM tbRune WHERE keyRune = $keyRunePrim1) and 
+	   EXISTS(SELECT idRune FROM tbRune WHERE keyRune = $keyRuneSec1) and 
+	   EXISTS(SELECT idRune FROM tbRune WHERE keyRune = $keyRuneTerc1) THEN
+		set $keyRunePrincipal1 = (SELECT idRune FROM tbRune WHERE keyRune = $keyRunePrincipal1);
+		set $keyRunePrim1 = (SELECT idRune FROM tbRune WHERE keyRune = $keyRunePrim1);
+		set $keyRuneSec1 = (SELECT idRune FROM tbRune WHERE keyRune = $keyRuneSec1);
+		set $keyRuneTerc1 = (SELECT idRune FROM tbRune WHERE keyRune = $keyRuneTerc1);
+        
+        IF NOT EXISTS(SELECT idPrimTree FROM tbPrimTree WHERE idRunePrincipal = $keyRunePrincipal1 and idRunePrim = $keyRunePrim1 and idRuneSec = $keyRuneSec1 and idRuneTerc = $keyRuneTerc1) THEN
+			INSERT INTO tbPrimTree(idRunePrincipal, idRunePrim, idRuneSec, idRuneTerc)
+				values ($keyRunePrincipal1, $keyRunePrim1, $keyRuneSec1, $keyRuneTerc1);
+		END IF;
+        
+        set $idPrimTree = (SELECT idPrimTree FROM tbPrimTree 
+								WHERE idRunePrincipal = $keyRunePrincipal1 and 
+									  idRunePrim = $keyRunePrim1 and 
+                                      idRuneSec = $keyRuneSec1 and 
+                                      idRuneTerc = $keyRuneTerc1 LIMIT 1);
+	ELSE
+		SIGNAL SQLSTATE '45000' set MESSAGE_TEXT = 'Runa da árvore primária inválida.';
+    END IF;
+    
+    # INSERT ÁRVORE SECUNDÁRIA
+    IF EXISTS(SELECT idRune FROM tbRune WHERE keyRune = $keyRunePrim2) and 
+	   EXISTS(SELECT idRune FROM tbRune WHERE keyRune = $keyRuneSec2) THEN
+		set $keyRunePrim2 = (SELECT idRune FROM tbRune WHERE keyRune = $keyRunePrim2);
+		set $keyRuneSec2 = (SELECT idRune FROM tbRune WHERE keyRune = $keyRuneSec2);
+        
+        IF NOT EXISTS(SELECT idSecTree FROM tbSecTree WHERE idRunePrim = $keyRunePrim2 and idRuneSec = $keyRuneSec2) THEN
+			INSERT INTO tbSecTree(idRunePrim, idRuneSec)
+				values ($keyRunePrim2, $keyRuneSec2);
+		END IF;
+        
+        set $idSecTree = (SELECT idSecTree FROM tbSecTree 
+								WHERE idRunePrim = $keyRunePrim2 and 
+									  idRuneSec = $keyRuneSec2 LIMIT 1);
+	ELSE
+		SIGNAL SQLSTATE '45000' set MESSAGE_TEXT = 'Runa da árvore secundária inválida.';
+    END IF;
+    
+    INSERT INTO tbConjRunes(idPrimTree, idSecTree)
+		values ($idPrimTree, $idSecTree);
+	
+    set $idConjRunes = (SELECT idConjRunes FROM tbConjRunes 
+							WHERE idPrimTree = $idPrimTree and 
+								  idSecTree = $idSecTree LIMIT 1);
+	
+    INSERT INTO tbChampion(nomChampion, imgChampion, idPairSpells, idBuild, idConjRunes) 
+		values ($nomChampion, $imgChampion, $idPairSpells, $idBuild, $idConjRunes);
+END $$
+
+CALL spInsertChampion('Kalista', 'Kalista', 
+					  'Cleanse', 'Flash', 
+					  'laminadedoran', 'pocaodevida', null, 
+					  'forcadatrindade', 'grevasdoberserker', 'manamune', 'coracaocongelado', 'rancordeserylda', 'hidraraivosa',
+					  'coroadarainhadespedacada', 'ruptordivino', 'ampulhetadezhonya',
+                      'ritmofatal', 'presencadeespirito', 'lendaespontaneidade', 'ateamorte',
+                      'gostodesangue', 'globosoculares');
+
+CALL spInsertChampion('Ezreal', 'Ezreal', 
+					  'Cleanse', 'Flash', 
+					  'laminadedoran', 'pocaodevida', null, 
+					  'forcadatrindade', 'botasgalvanizadasdeaco', 'manamune', 'coracaocongelado', 'rancordeserylda', 'hidraraivosa',
+					  'coroadarainhadespedacada', 'ruptordivino', 'ampulhetadezhonya',
+                      'ritmofatal', 'presencadeespirito', 'lendaespontaneidade', 'ateamorte',
+                      'gostodesangue', 'globosoculares');
+
+
+# SELECT SPELL PAIR
+SELECT idPairSpells, s1.keySpell, s1.imgSpell, s2.keySpell, s2.imgSpell FROM tbPairSpells p 
+	INNER JOIN tbSpell s1 on
+		p.idPrimSpell = s1.idSpell
+	INNER JOIN tbSpell s2 on
+		p.idSecSpell = s2.idSpell;
+
+# SELECT BUILD INICIAL
+SELECT idBuildInicial, i1.nomItem, i1.imgItem, i2.nomItem, i2.imgItem, i3.nomItem, i3.imgItem  FROM tbBuildInicial bi 
+	INNER JOIN tbItem i1 on
+		bi.idItem1 = i1.idItem
+	LEFT JOIN tbItem i2 on
+		bi.idItem2 = i2.idItem
+	LEFT JOIN tbItem i3 on
+		bi.idItem3 = i3.idItem;
+
+# SELECT BUILD GERAL
+SELECT idBuildGeral, i1.keyItem, i1.imgItem, i2.keyItem, i2.imgItem, i3.keyItem, i3.imgItem, i4.keyItem, i4.imgItem, i5.keyItem, i5.imgItem, i6.keyItem, i6.imgItem FROM tbBuildGeral bg 
+	INNER JOIN tbItem i1 on
+		bg.idItem1 = i1.idItem
+	LEFT JOIN tbItem i2 on
+		bg.idItem2 = i2.idItem
+	LEFT JOIN tbItem i3 on
+		bg.idItem3 = i3.idItem
+	LEFT JOIN tbItem i4 on
+		bg.idItem4 = i4.idItem
+	LEFT JOIN tbItem i5 on
+		bg.idItem5 = i5.idItem
+	LEFT JOIN tbItem i6 on
+		bg.idItem6 = i6.idItem;
+
+# SELECT BUILD SITUACIONAL
+SELECT idBuildSituacional, i1.nomItem, i1.imgItem, i2.nomItem, i2.imgItem, i3.nomItem, i3.imgItem  FROM tbBuildSituacional bs 
+	INNER JOIN tbItem i1 on
+		bs.idItem1 = i1.idItem
+	LEFT JOIN tbItem i2 on
+		bs.idItem2 = i2.idItem
+	LEFT JOIN tbItem i3 on
+		bs.idItem3 = i3.idItem;
+
+# SELECT BUILD
+SELECT * FROM tbBuild;
+
+# SELECT ÁRVORE PRIMÁRIA
+SELECT * FROM tbPrimTree;
+
+# SELECT ÁRVORE SECUNDÁRIA
+SELECT * FROM tbSecTree;
+
+# SELECT CONJUNTO DE RUNAS
+SELECT * FROM tbConjRunes;
+
+# SELECT CHAMPION
+SELECT * FROM tbChampion;
