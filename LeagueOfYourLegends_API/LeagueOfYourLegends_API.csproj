@@ -155,11 +155,25 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\ChampionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Build.cs" />
+    <Compile Include="Models\Champion.cs" />
+    <Compile Include="Models\ConjRunes.cs" />
+    <Compile Include="Models\Geral.cs" />
+    <Compile Include="Models\Inicial.cs" />
+    <Compile Include="Models\Item.cs" />
+    <Compile Include="Models\PairSpells.cs" />
+    <Compile Include="Models\PrimTree.cs" />
+    <Compile Include="Models\Rune.cs" />
+    <Compile Include="Models\SecTree.cs" />
+    <Compile Include="Models\Situacional.cs" />
+    <Compile Include="Models\Spell.cs" />
+    <Compile Include="Models\Tree.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -215,7 +229,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
