@@ -7,7 +7,6 @@ namespace LeagueOfYourLegends_API.Models
 {
     public class PrimTree
     {
-        public int idPrimTree { get; set; }
         public Tree treePrimTree { get; set; }
         public Rune rune1 { get; set; }
         public Rune rune2 { get; set; }

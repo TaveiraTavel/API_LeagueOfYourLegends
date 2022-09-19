@@ -504,11 +504,13 @@ CREATE PROCEDURE spInsertChampion(
     in $keyItemSituacional2 varchar(48),
     in $keyItemSituacional3 varchar(48),
     
+    in $keyTree1 varchar(24),
     in $keyRunePrincipal1 varchar(32),
     in $keyRunePrim1 varchar(32),
     in $keyRuneSec1 varchar(32),
     in $keyRuneTerc1 varchar(32),
     
+    in $keyTree2 varchar(24),
     in $keyRunePrim2 varchar(32),
     in $keyRuneSec2 varchar(32)
 )
@@ -519,14 +521,18 @@ BEGIN
 	DECLARE $idBuildSituacional smallint;
 	DECLARE $idBuild smallint;
 	DECLARE $idPrimTree smallint;
+	DECLARE $idTree1 smallint;
 	DECLARE $idSecTree smallint;
+	DECLARE $idTree2 smallint;
 	DECLARE $idConjRunes smallint;
     
 	IF ($nomChampion or $keyChampion or 
 		$keySpell1 or $keySpell2 or 
         $keyItemInicial1 or 
         $keyItemGeral1 or $keyItemGeral2 or $keyItemGeral3 or $keyItemGeral4 or $keyItemGeral5 or $keyItemGeral6 or
-        $keyItemSituacional1 or $keyItemSituacional2 or $keyItemSituacional3) is null THEN
+        $keyItemSituacional1 or $keyItemSituacional2 or $keyItemSituacional3 or
+        $keyTree1 or $keyRunePrincipal1 or $keyRunePrim1 or $keyRuneSec1 or $keyRuneTerc1 or
+        $keyTree2 or $keyRunePrim2 or $keyRuneSec2) is null THEN
 			SIGNAL SQLSTATE '45000' set MESSAGE_TEXT = 'Valores obrigatórios não podem ser nulos.';
 	END IF;
     
@@ -629,18 +635,20 @@ BEGIN
                               idBuildSituacional = $idBuildSituacional LIMIT 1);
     
     # INSERT ÁRVORE PRIMÁRIA
-    IF EXISTS(SELECT idRune FROM tbRune WHERE keyRune = $keyRunePrincipal1) and 
+    IF EXISTS(SELECT idTree FROM tbTree WHERE keyTree = $keyTree1) and 
+	   EXISTS(SELECT idRune FROM tbRune WHERE keyRune = $keyRunePrincipal1) and 
 	   EXISTS(SELECT idRune FROM tbRune WHERE keyRune = $keyRunePrim1) and 
 	   EXISTS(SELECT idRune FROM tbRune WHERE keyRune = $keyRuneSec1) and 
 	   EXISTS(SELECT idRune FROM tbRune WHERE keyRune = $keyRuneTerc1) THEN
+	    set $keyTree1 = (SELECT idTree FROM tbTree WHERE keyTree = $keyTree1);
 		set $keyRunePrincipal1 = (SELECT idRune FROM tbRune WHERE keyRune = $keyRunePrincipal1);
 		set $keyRunePrim1 = (SELECT idRune FROM tbRune WHERE keyRune = $keyRunePrim1);
 		set $keyRuneSec1 = (SELECT idRune FROM tbRune WHERE keyRune = $keyRuneSec1);
 		set $keyRuneTerc1 = (SELECT idRune FROM tbRune WHERE keyRune = $keyRuneTerc1);
         
-        IF NOT EXISTS(SELECT idPrimTree FROM tbPrimTree WHERE idRunePrincipal = $keyRunePrincipal1 and idRunePrim = $keyRunePrim1 and idRuneSec = $keyRuneSec1 and idRuneTerc = $keyRuneTerc1) THEN
-			INSERT INTO tbPrimTree(idRunePrincipal, idRunePrim, idRuneSec, idRuneTerc)
-				values ($keyRunePrincipal1, $keyRunePrim1, $keyRuneSec1, $keyRuneTerc1);
+        IF NOT EXISTS(SELECT idPrimTree FROM tbPrimTree WHERE idTree = $keyTree1 and idRunePrincipal = $keyRunePrincipal1 and idRunePrim = $keyRunePrim1 and idRuneSec = $keyRuneSec1 and idRuneTerc = $keyRuneTerc1) THEN
+			INSERT INTO tbPrimTree(idTree, idRunePrincipal, idRunePrim, idRuneSec, idRuneTerc)
+				values ($keyTree1, $keyRunePrincipal1, $keyRunePrim1, $keyRuneSec1, $keyRuneTerc1);
 		END IF;
         
         set $idPrimTree = (SELECT idPrimTree FROM tbPrimTree 
@@ -653,14 +661,16 @@ BEGIN
     END IF;
     
     # INSERT ÁRVORE SECUNDÁRIA
-    IF EXISTS(SELECT idRune FROM tbRune WHERE keyRune = $keyRunePrim2) and 
+    IF EXISTS(SELECT idTree FROM tbTree WHERE keyTree = $keyTree2) and 
+       EXISTS(SELECT idRune FROM tbRune WHERE keyRune = $keyRunePrim2) and 
 	   EXISTS(SELECT idRune FROM tbRune WHERE keyRune = $keyRuneSec2) THEN
+	    set $keyTree2 = (SELECT idTree FROM tbTree WHERE keyTree = $keyTree2);
 		set $keyRunePrim2 = (SELECT idRune FROM tbRune WHERE keyRune = $keyRunePrim2);
 		set $keyRuneSec2 = (SELECT idRune FROM tbRune WHERE keyRune = $keyRuneSec2);
         
-        IF NOT EXISTS(SELECT idSecTree FROM tbSecTree WHERE idRunePrim = $keyRunePrim2 and idRuneSec = $keyRuneSec2) THEN
-			INSERT INTO tbSecTree(idRunePrim, idRuneSec)
-				values ($keyRunePrim2, $keyRuneSec2);
+        IF NOT EXISTS(SELECT idSecTree FROM tbSecTree WHERE idTree = $keyTree1 and idRunePrim = $keyRunePrim2 and idRuneSec = $keyRuneSec2) THEN
+			INSERT INTO tbSecTree(idTree, idRunePrim, idRuneSec)
+				values ($keyTree2, $keyRunePrim2, $keyRuneSec2);
 		END IF;
         
         set $idSecTree = (SELECT idSecTree FROM tbSecTree 
@@ -686,16 +696,16 @@ CALL spInsertChampion('Kalista', 'Kalista',
 					  'laminadedoran', 'pocaodevida', null, 
 					  'forcadatrindade', 'grevasdoberserker', 'manamune', 'coracaocongelado', 'rancordeserylda', 'hidraraivosa',
 					  'coroadarainhadespedacada', 'ruptordivino', 'ampulhetadezhonya',
-                      'ritmofatal', 'presencadeespirito', 'lendaespontaneidade', 'ateamorte',
-                      'gostodesangue', 'globosoculares');
+                      'Precision', 'ritmofatal', 'presencadeespirito', 'lendaespontaneidade', 'ateamorte',
+                      'Domination' ,'gostodesangue', 'globosoculares');
 
 CALL spInsertChampion('Ezreal', 'Ezreal', 
 					  'Cleanse', 'Flash', 
 					  'laminadedoran', 'pocaodevida', null, 
 					  'forcadatrindade', 'botasgalvanizadasdeaco', 'manamune', 'coracaocongelado', 'rancordeserylda', 'hidraraivosa',
 					  'coroadarainhadespedacada', 'ruptordivino', 'ampulhetadezhonya',
-                      'ritmofatal', 'presencadeespirito', 'lendaespontaneidade', 'ateamorte',
-                      'gostodesangue', 'globosoculares');
+                      'Precision', 'ritmofatal', 'presencadeespirito', 'lendaespontaneidade', 'ateamorte',
+                      'Domination', 'gostodesangue', 'globosoculares');
 
 
 # SELECT SPELL PAIR
@@ -751,4 +761,75 @@ SELECT * FROM tbSecTree;
 SELECT * FROM tbConjRunes;
 
 # SELECT CHAMPION
-SELECT * FROM tbChampion;
+CREATE VIEW vwChampion AS SELECT nomChampion, keyChampion, 
+		s1.nomSpell as 'nomSpell1', s1.keySpell as 'keySpell1', s1.imgSpell as 'imgSpell1', s2.nomSpell as 'nomSpell2', s2.keySpell as 'keySpell2', s2.imgSpell as 'imgSpell2', 
+        ii1.nomItem as 'nomItemInicial1', ii1.imgItem as 'imgItemInicial1', ii2.nomItem as 'nomItemInicial2', ii2.imgItem as 'imgItemInicial2', ii3.nomItem as 'nomItemInicial3', ii3.imgItem as 'imgItemInicial3', 
+        ig1.nomItem as 'nomItemGeral1', ig1.imgItem as 'imgItemGeral1', ig2.nomItem as 'nomItemGeral2', ig2.imgItem as 'imgItemGeral2', ig3.nomItem as 'nomItemGeral3', ig3.imgItem as 'imgItemGeral3', ig4.nomItem as 'nomItemGeral4', ig4.imgItem as 'imgItemGeral4', ig5.nomItem as 'nomItemGeral5', ig5.imgItem as 'imgItemGeral5', ig6.nomItem as 'nomItemGeral6', ig6.imgItem as 'imgItemGeral6', 
+        is1.nomItem as 'nomItemSituacional1', is1.imgItem as 'imgItemSituacional1', is2.nomItem as 'nomItemSituacional2', is2.imgItem as 'imgItemSituacional2', is3.nomItem as 'nomItemSituacional3', is3.imgItem as 'imgItemSituacional3' 
+        FROM tbChampion c
+	INNER JOIN tbPairSpells p on
+		c.idPairSpells = p.idPairSpells
+	INNER JOIN tbSpell s1 on
+		p.idPrimSpell = s1.idSpell
+	INNER JOIN tbSpell s2 on
+		p.idSecSpell = s2.idSpell
+    INNER JOIN tbBuild b on 
+		b.idBuild = c.idBuild
+	INNER JOIN tbBuildInicial bi on
+		bi.idBuildInicial = b.idBuildInicial
+	INNER JOIN tbItem ii1 on
+		bi.idItem1 = ii1.idItem
+	LEFT JOIN tbItem ii2 on
+		bi.idItem2 = ii2.idItem
+	LEFT JOIN tbItem ii3 on
+		bi.idItem3 = ii3.idItem
+	INNER JOIN tbBuildGeral bg on 
+		bg.idBuildGeral = b.idBuildGeral
+	INNER JOIN tbItem ig1 on
+		bg.idItem1 = ig1.idItem
+	LEFT JOIN tbItem ig2 on
+		bg.idItem2 = ig2.idItem
+	LEFT JOIN tbItem ig3 on
+		bg.idItem3 = ig3.idItem
+	LEFT JOIN tbItem ig4 on
+		bg.idItem4 = ig4.idItem
+	LEFT JOIN tbItem ig5 on
+		bg.idItem5 = ig5.idItem
+	LEFT JOIN tbItem ig6 on
+		bg.idItem6 = ig6.idItem
+	INNER JOIN tbBuildSituacional bs on
+		bs.idBuildSituacional = b.idBuildSituacional
+	INNER JOIN tbItem is1 on
+		bs.idItem1 = is1.idItem
+	LEFT JOIN tbItem is2 on
+		bs.idItem2 = is2.idItem
+	LEFT JOIN tbItem is3 on
+		bs.idItem3 = is3.idItem;
+
+DELIMITER $$
+CREATE PROCEDURE spGetSpellByKey(
+	in $keySpell varchar(16)
+)
+BEGIN
+	SELECT nomSpell, keySpell, imgSpell FROM tbSpell WHERE keySpell = $keySpell;
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE spGetPairSpellByChampionKey(
+	in $keyChampion varchar(36)
+)
+BEGIN
+	SELECT keySpell1, keySpell2 FROM vwChampion WHERE keyChampion = $keyChampion;
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE spGetChampionByKey(
+	in $keyChampion varchar(36)
+)
+BEGIN
+	SELECT * FROM vwChampion WHERE nomChampion = (SELECT nomChampion FROM tbChampion WHERE keyChampion = $keyChampion);
+END $$
+
+
+
+CALL spGetChampionByKey("Ezreal");

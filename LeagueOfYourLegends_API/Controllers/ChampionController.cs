@@ -17,5 +17,12 @@ namespace LeagueOfYourLegends_API.Controllers
             string retorno = "id: " + id;
             return retorno;
         }
+
+        private static Champion champion = new Champion().getChampionByKey("Kalista");
+
+        public Champion Get()
+        {
+            return champion;
+        }
     }
 }

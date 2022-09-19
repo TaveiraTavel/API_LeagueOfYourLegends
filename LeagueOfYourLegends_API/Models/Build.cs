@@ -7,7 +7,6 @@ namespace LeagueOfYourLegends_API.Models
 {
     public class Build
     {
-        public int idBuild { get; set; }
         public Inicial inicialBuild { get; set; }
         public Geral geralBuild { get; set; }
         public Situacional situacionalBuild { get; set; }
