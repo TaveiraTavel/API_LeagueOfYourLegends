@@ -12,17 +12,15 @@ namespace LeagueOfYourLegends_API.Controllers
     {
         [HttpGet]
         [ActionName("DefaultApi")]
-        public string justTest(int id)
+        public Champion GetSpecified(string champion)
         {
-            string retorno = "id: " + id;
-            return retorno;
+            return new Champion().getChampionByKey(champion);
         }
 
-        private static Champion champion = new Champion().getChampionByKey("Kalista");
-
-        public Champion Get()
+        public string Get()
         {
-            return champion;
+            //return new Champion().getAllChampions();
+            return "TODOS";
         }
     }
 }

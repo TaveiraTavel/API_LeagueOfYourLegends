@@ -680,8 +680,11 @@ BEGIN
 		SIGNAL SQLSTATE '45000' set MESSAGE_TEXT = 'Runa da árvore secundária inválida.';
     END IF;
     
-    INSERT INTO tbConjRunes(idPrimTree, idSecTree)
-		values ($idPrimTree, $idSecTree);
+    # INSERT CONJUNTO DE RUNAS
+	IF NOT EXISTS(SELECT idConjRunes FROM tbConjRunes WHERE idPrimTree = $idPrimTree and idSecTree = $idSecTree) THEN 
+		INSERT INTO tbConjRunes(idPrimTree, idSecTree)
+			values ($idPrimTree, $idSecTree);
+	END IF;
 	
     set $idConjRunes = (SELECT idConjRunes FROM tbConjRunes 
 							WHERE idPrimTree = $idPrimTree and 
@@ -705,7 +708,7 @@ CALL spInsertChampion('Ezreal', 'Ezreal',
 					  'forcadatrindade', 'botasgalvanizadasdeaco', 'manamune', 'coracaocongelado', 'rancordeserylda', 'hidraraivosa',
 					  'coroadarainhadespedacada', 'ruptordivino', 'ampulhetadezhonya',
                       'Precision', 'ritmofatal', 'presencadeespirito', 'lendaespontaneidade', 'ateamorte',
-                      'Domination', 'gostodesangue', 'globosoculares');
+                      'Domination', 'golpedesleal', 'globosoculares');
 
 
 # SELECT SPELL PAIR
@@ -805,6 +808,50 @@ CREATE VIEW vwChampion AS SELECT nomChampion, keyChampion,
 		bs.idItem2 = is2.idItem
 	LEFT JOIN tbItem is3 on
 		bs.idItem3 = is3.idItem;
+
+# PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES #
+# CEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PR #
+# ES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDU #
+
+DELIMITER $$
+CREATE PROCEDURE spGetRuneById(
+	in $idRune smallint
+)
+BEGIN
+	SELECT nomRune, keyRune, imgRune FROM tbRune WHERE idRune = $idRune;
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE spGetTreeById(
+	in $idTree smallint
+)
+BEGIN
+	SELECT nomTree, keyTree FROM tbTree WHERE idTree = $idTree;
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE spGetSecTreeById(
+	in $idSecTree smallint
+)
+BEGIN
+	SELECT idTree, idRunePrim, idRuneSec FROM tbSecTree WHERE idSecTree = $idSecTree;
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE spGetPrimTreeById(
+	in $idPrimTree smallint
+)
+BEGIN
+	SELECT idTree, idRunePrincipal, idRunePrim, idRuneSec, idRuneTerc FROM tbPrimTree WHERE idPrimTree = $idPrimTree;
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE spGetConjRunesByChampionKey(
+	in $keyChampion varchar(36)
+)
+BEGIN
+	SELECT idPrimTree, idSecTree FROM tbConjRunes WHERE idConjRunes = (SELECT idConjRunes FROM tbChampion WHERE keyChampion = $keyChampion);
+END $$
 
 DELIMITER $$
 CREATE PROCEDURE spGetSpellByKey(

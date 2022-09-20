@@ -16,13 +16,13 @@ namespace LeagueOfYourLegends_API
 
             config.Routes.MapHttpRoute(
                 name: "WithActionApi",
-                routeTemplate: "api/{controller}/{action}/{id}"
+                routeTemplate: "api/{controller}/{action}/{champion}"
             );
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                routeTemplate: "api/{controller}/{champion}",
+                defaults: new { champion = RouteParameter.Optional }
             );
         }
     }
