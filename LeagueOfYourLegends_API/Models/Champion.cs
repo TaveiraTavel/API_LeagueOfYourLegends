@@ -33,6 +33,7 @@ namespace LeagueOfYourLegends_API.Models
                 tempChamp.keyChamp = readChampion["keyChampion"].ToString();
                 tempChamp.pairSpellsChamp = new PairSpells().getPairSpellByChampionKey(keyChampion);
                 tempChamp.conjRunesChamp = new ConjRunes().getConjRunesByChampionKey(keyChampion);
+                tempChamp.buildChamp = new Build().getBuildByChampionKey(keyChampion);
             }
 
             readChampion.Close();

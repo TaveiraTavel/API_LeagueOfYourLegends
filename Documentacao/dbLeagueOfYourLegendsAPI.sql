@@ -530,7 +530,7 @@ BEGIN
 		$keySpell1 or $keySpell2 or 
         $keyItemInicial1 or 
         $keyItemGeral1 or $keyItemGeral2 or $keyItemGeral3 or $keyItemGeral4 or $keyItemGeral5 or $keyItemGeral6 or
-        $keyItemSituacional1 or $keyItemSituacional2 or $keyItemSituacional3 or
+        $keyItemSituacional1 or $keyItemSituacional2 or
         $keyTree1 or $keyRunePrincipal1 or $keyRunePrim1 or $keyRuneSec1 or $keyRuneTerc1 or
         $keyTree2 or $keyRunePrim2 or $keyRuneSec2) is null THEN
 			SIGNAL SQLSTATE '45000' set MESSAGE_TEXT = 'Valores obrigatórios não podem ser nulos.';
@@ -562,7 +562,7 @@ BEGIN
 		set $keyItemInicial2 = (SELECT idItem FROM tbItem WHERE keyItem = $keyItemInicial2);
 		set $keyItemInicial3 = (SELECT idItem FROM tbItem WHERE keyItem = $keyItemInicial3);
         
-        IF NOT EXISTS(SELECT idBuildInicial FROM tbBuildInicial WHERE idItem1 = $keyItemInicial1 and (idItem2 = $keyItemInicial2 or $keyItemInicial2 is null) and idItem3 = $keyItemInicial3 or $keyItemInicial3 is null) THEN
+        IF NOT EXISTS(SELECT idBuildInicial FROM tbBuildInicial WHERE idItem1 = $keyItemInicial1 and (idItem2 = $keyItemInicial2 or $keyItemInicial2 is null) and (idItem3 = $keyItemInicial3 or $keyItemInicial3 is null)) THEN
 			INSERT INTO tbBuildInicial(idItem1, idItem2, idItem3)
 				values ($keyItemInicial1, $keyItemInicial2, $keyItemInicial3);
 		END IF;
@@ -608,12 +608,12 @@ BEGIN
     # INSERT BUILD SITUACIONAL
     IF EXISTS(SELECT idItem FROM tbItem WHERE keyItem = $keyItemSituacional1) and 
 	   EXISTS(SELECT idItem FROM tbItem WHERE keyItem = $keyItemSituacional2) and 
-	   EXISTS(SELECT idItem FROM tbItem WHERE keyItem = $keyItemSituacional3) THEN
+	   (EXISTS(SELECT idItem FROM tbItem WHERE keyItem = $keyItemSituacional3) or $keyItemSituacional3 is null) THEN
 		set $keyItemSituacional1 = (SELECT idItem FROM tbItem WHERE keyItem = $keyItemSituacional1);
 		set $keyItemSituacional2 = (SELECT idItem FROM tbItem WHERE keyItem = $keyItemSituacional2);
 		set $keyItemSituacional3 = (SELECT idItem FROM tbItem WHERE keyItem = $keyItemSituacional3);
         
-        IF NOT EXISTS(SELECT idBuildSituacional FROM tbBuildSituacional WHERE idItem1 = $keyItemSituacional1 and idItem2 = $keyItemSituacional2 and idItem3 = $keyItemSituacional3) THEN
+        IF NOT EXISTS(SELECT idBuildSituacional FROM tbBuildSituacional WHERE idItem1 = $keyItemSituacional1 and idItem2 = $keyItemSituacional2 and (idItem3 = $keyItemSituacional3 or $keyItemSituacional3 is null)) THEN
 			INSERT INTO tbBuildSituacional(idItem1, idItem2, idItem3)
 			values ($keyItemSituacional1, $keyItemSituacional2, $keyItemSituacional3);
 		END IF;
@@ -621,7 +621,7 @@ BEGIN
         set $idBuildSituacional = (SELECT idBuildSituacional FROM tbBuildSituacional 
 								WHERE idItem1 = $keyItemSituacional1 and 
 									  idItem2 = $keyItemSituacional2 and 
-                                      idItem3 = $keyItemSituacional3 LIMIT 1);
+                                      (idItem3 = $keyItemSituacional3 or $keyItemSituacional3 is null) LIMIT 1);
 	ELSE
 		SIGNAL SQLSTATE '45000' set MESSAGE_TEXT = 'Item situacional inválido.';
     END IF;
@@ -698,7 +698,7 @@ CALL spInsertChampion('Kalista', 'Kalista',
 					  'Cleanse', 'Flash', 
 					  'laminadedoran', 'pocaodevida', null, 
 					  'forcadatrindade', 'grevasdoberserker', 'manamune', 'coracaocongelado', 'rancordeserylda', 'hidraraivosa',
-					  'coroadarainhadespedacada', 'ruptordivino', 'ampulhetadezhonya',
+					  'coroadarainhadespedacada', 'ruptordivino', null,
                       'Precision', 'ritmofatal', 'presencadeespirito', 'lendaespontaneidade', 'ateamorte',
                       'Domination' ,'gostodesangue', 'globosoculares');
 
@@ -812,6 +812,45 @@ CREATE VIEW vwChampion AS SELECT nomChampion, keyChampion,
 # PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES #
 # CEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PR #
 # ES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDURES PROCEDU #
+DELIMITER $$
+CREATE PROCEDURE spGetItemById(
+	in $idItem smallint
+)
+BEGIN
+	SELECT nomItem, keyItem, imgItem FROM tbItem WHERE idItem = $idItem;
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE spGetSituacionalBuildById(
+	in $idBuildSituacional smallint
+)
+BEGIN
+	SELECT idItem1, idItem2, idItem3 FROM tbBuildSituacional WHERE idBuildSituacional = $idBuildSituacional;
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE spGetGeralBuildById(
+	in $idBuildGeral smallint
+)
+BEGIN
+	SELECT idItem1, idItem2, idItem3, idItem4, idItem5, idItem6 FROM tbBuildGeral WHERE idBuildGeral = $idBuildGeral;
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE spGetInicialBuildById(
+	in $idBuildInicial smallint
+)
+BEGIN
+	SELECT idItem1, idItem2, idItem3 FROM tbBuildInicial WHERE idBuildInicial = $idBuildInicial;
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE spGetBuildByChampionKey(
+	in $keyChampion varchar(36)
+)
+BEGIN
+	SELECT idBuildInicial, idBuildGeral, idBuildSituacional FROM tbBuild WHERE idBuild = (SELECT idBuild FROM tbChampion WHERE keyChampion = $keyChampion);
+END $$
 
 DELIMITER $$
 CREATE PROCEDURE spGetRuneById(

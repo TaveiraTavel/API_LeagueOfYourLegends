@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Web.Http;
 
 namespace LeagueOfYourLegends_API
@@ -10,6 +11,8 @@ namespace LeagueOfYourLegends_API
         public static void Register(HttpConfiguration config)
         {
             // Configuração e serviços de API Web
+            config.Formatters.JsonFormatter.SupportedMediaTypes
+                .Add(new MediaTypeHeaderValue("text/html"));
 
             // Rotas de API Web
             config.MapHttpAttributeRoutes();
