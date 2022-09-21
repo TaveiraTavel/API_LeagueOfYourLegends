@@ -351,7 +351,8 @@ INSERT INTO tbTree(nomTree, keyTree)
 	values ('Dominação', 'Domination'),
 		   ('Inspiração', 'Inspiration'),
 		   ('Precisão', 'Precision'),
-		   ('Feitiçaria', 'Resolve');
+		   ('Feitiçaria', 'Resolve'),
+		   ('Determinação', 'Determination');
 
 # TABELA RUNAS
 CREATE TABLE tbRune(
@@ -412,6 +413,22 @@ INSERT INTO tbRune(nomRune, keyRune, imgRune)
 		   ('Golpe de Misericórdia', 'golpedemisericordia', 'CoupDeGrace'),
 		   ('Dilacerar', 'dilacerar', 'CutDown'),
 		   ('Até a Morte', 'ateamorte', 'LastStand'),
+           ####################
+		   ('Invocar Aery', 'invocaraery', 'SummonAery'),
+		   ('Cometa Arcano', 'cometaarcano', 'ArcaneComet'),
+		   ('Ímpeto Gradual', 'impetogradual', 'PhaseRush'),
+           
+		   ('Orbe Anulador', 'orbeanulador', 'NullifyingOrb'),
+		   ('Faixa de Fluxo de Mana', 'faixadefluxodemana', 'ManaflowBand'),
+		   ('Manto de Nimbus', 'mantodenimbus', 'NimbusCloak'),
+           
+		   ('Transcendência', 'transcendencia', 'Transcendence'),
+		   ('Celeridade', 'celeridade', 'Celerity'),
+		   ('Foco Absoluto', 'focoabsoluto', 'AbsoluteFocus'),
+           
+		   ('Chamuscar', 'chamuscar', 'Scorch'),
+		   ('Caminhar Sobre as Águas', 'caminharsobreasaguas', 'Waterwalking'),
+		   ('Tempestade Crescente', 'tempestadecrescente', 'GatheringStorm'),
            ####################
 		   ('Aperto dos Mortos-Vivos', 'apertodosmortos-vivos', 'GraspOfTheUndying'),
 		   ('Pós-choque', 'pos-choque', 'Aftershock'),
@@ -695,20 +712,69 @@ BEGIN
 END $$
 
 CALL spInsertChampion('Kalista', 'Kalista', 
-					  'Cleanse', 'Flash', 
-					  'laminadedoran', 'pocaodevida', null, 
-					  'forcadatrindade', 'grevasdoberserker', 'manamune', 'coracaocongelado', 'rancordeserylda', 'hidraraivosa',
-					  'coroadarainhadespedacada', 'ruptordivino', null,
-                      'Precision', 'ritmofatal', 'presencadeespirito', 'lendaespontaneidade', 'ateamorte',
-                      'Domination' ,'gostodesangue', 'globosoculares');
+					  'Exhaust', 'Flash', 
+					  'laminadedoran', 'pocaodevida', 'lancanegradakalista', 
+					  'arco-escudoimortal', 'grevasdoberserker', 'laminadafuriadeguinsoo', 'espadadoreidestruido', 'furacaoderunaan', 'limitedarazao',
+					  'anjoguardiao', 'lembretemortal', 'lembrancasdolordedominik',
+                      'Precision', 'ritmofatal', 'triunfo', 'lendaespontaneidade', 'golpedemisericordia',
+                      'Domination' ,'gostodesangue', 'cacadordetesouros');
 
 CALL spInsertChampion('Ezreal', 'Ezreal', 
-					  'Cleanse', 'Flash', 
+					  'Heal', 'Flash', 
+					  'lagrimadadeusa', 'pocaodevida', null, 
+					  'forcadatrindade', 'botasionianasdalucidez', 'manamune', 'coracaocongelado', 'rancordeserylda', 'hidraraivosa',
+					  'colhedordeessencia', 'ruptordivino', 'ampulhetadezhonya',
+                      'Precision', 'pressioneoataque', 'presencadeespirito', 'lendalinhagem', 'golpedemisericordia',
+                      'Inspiration', 'calcadosmagicos', 'entregadebiscoitos');
+
+CALL spInsertChampion('Lucian', 'Lucian', 
+					  'Heal', 'Flash', 
 					  'laminadedoran', 'pocaodevida', null, 
-					  'forcadatrindade', 'botasgalvanizadasdeaco', 'manamune', 'coracaocongelado', 'rancordeserylda', 'hidraraivosa',
-					  'coroadarainhadespedacada', 'ruptordivino', 'ampulhetadezhonya',
-                      'Precision', 'ritmofatal', 'presencadeespirito', 'lendaespontaneidade', 'ateamorte',
-                      'Domination', 'golpedesleal', 'globosoculares');
+					  'forcadovendaval', 'grevasdoberserker', 'colhedordeessencia', 'canhaofumegante', 'gumedoinfinito', 'acoletora',
+					  'lembrancasdolordedominik', 'lembretemortal', 'anjoguardiao',
+                      'Precision', 'pressioneoataque', 'presencadeespirito', 'lendalinhagem', 'golpedemisericordia',
+                      'Inspiration', 'calcadosmagicos', 'entregadebiscoitos');
+
+CALL spInsertChampion('Shen', 'Shen', 
+					  'Teleport', 'Flash', 
+					  'escudodedoran', 'pocaodevida', null, 
+					  'manopladoraiodegelo', 'botasgalvanizadasdeaco', 'hidratitanica', 'armaduradeespinhos', 'forcadanatureza', 'placagargolitica',
+					  'pressagioderanduin', 'egidedefogosolar', 'passosdemercurio',
+                      'Determination', 'apertodosmortos-vivos', 'golpedeescudo', 'ventosrevigorantes', 'revitalizar',
+                      'Domination', 'golpedesleal', 'cacasuprema');
+
+CALL spInsertChampion('Veigar', 'Veigar', 
+					  'Teleport', 'Flash', 
+					  'aneldedoran', 'pocaodevida', null, 
+					  'glacieterno', 'sapatosdofeiticeiro', 'ampulhetadezhonya', 'cajadodovazio', 'capuzdamortederabadon', 'morellonomicon',
+					  'tormentadeluden', 'botasionianasdalucidez', 'veudabanshee',
+                      'Domination', 'eletrocutar', 'gostodesangue', 'globosoculares', 'cacaardilosa',
+                      'Resolve', 'faixadefluxodemana', 'transcendencia');
+
+CALL spInsertChampion('Ashe', 'Ashe', 
+					  'Heal', 'Flash', 
+					  'laminadedoran', 'pocaodevida', null, 
+					  'mata-craquens', 'grevasdoberserker', 'dancarinafantasma', 'gumedoinfinito', 'furacaoderunaan', 'espadadoreidestruido',
+					  'arco-escudoimortal', 'lembretemortal', 'laminadafuriadeguinsoo',
+                      'Precision', 'ritmofatal', 'presencadeespirito', 'lendaespontaneidade', 'golpedemisericordia',
+                      'Inspiration' ,'entregadebiscoitos', 'velocidadedeaproximacao');
+
+CALL spInsertChampion('Sivir', 'Sivir', 
+					  'Heal', 'Flash', 
+					  'laminadedoran', 'pocaodevida', null, 
+					  'mata-craquens', 'grevasdoberserker', 'dancarinafantasma', 'gumedoinfinito', 'lembrancasdolordedominik', 'sedentaporsangue',
+					  'forcadovendaval', 'lembretemortal', 'anjoguardiao',
+                      'Precision', 'ritmofatal', 'presencadeespirito', 'lendalinhagem', 'golpedemisericordia',
+                      'Inspiration' , 'calcadosmagicos', 'entregadebiscoitos');
+
+CALL spInsertChampion('Tristana', 'Tristana', 
+					  'Exhaust', 'Flash', 
+					  'laminadedoran', 'pocaodevida', null, 
+					  'mata-craquens', 'grevasdoberserker', 'dancarinafantasma', 'gumedoinfinito', 'lembrancasdolordedominik', 'canhaofumegante',
+					  'forcadovendaval', 'chuvadecanivete', 'anjoguardiao',
+                      'Domination', 'chuvadelaminas', 'gostodesangue', 'globosoculares', 'cacadordetesouros',
+                      'Precision' , 'triunfo', 'lendalinhagem');
+
 
 
 # SELECT SPELL PAIR
@@ -918,4 +984,4 @@ END $$
 
 
 
-CALL spGetChampionByKey("Ezreal");
+CALL spGetChampionByKey("Veigar");
