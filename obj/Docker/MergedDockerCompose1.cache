@@ -1,0 +1,44 @@
+name: dockercompose1137122304428824288
+services:
+  leagueofyourlegends_api:
+    build:
+      context: C:\Users\mateu\source\repos\LeagueOfYourLegends_API\LeagueOfYourLegends_API
+      dockerfile: Dockerfile
+      args:
+        source: obj/Docker/empty/
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: LeagueOfYourLegends_API
+    container_name: LeagueOfYourLegends_API
+    entrypoint:
+    - cmd
+    - /c
+    - start /B C:\ServiceMonitor.exe w3svc & C:\remote_debugger\x64\msvsmon.exe /noauth
+      /anyuser /silent /nostatus /noclrwarn /nosecuritywarn /nofirewallwarn /nowowwarn
+      /timeout:2147483646
+    environment:
+      DEV_ENVIRONMENT: "1"
+      VBCSCOMPILER_TTL: "604800"
+    image: leagueofyourlegendsapi:dev
+    networks:
+      default: null
+    ports:
+    - mode: ingress
+      target: 80
+      protocol: tcp
+    volumes:
+    - type: bind
+      source: C:\Users\mateu\source\repos\LeagueOfYourLegends_API\LeagueOfYourLegends_API
+      target: C:\inetpub\wwwroot
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\Remote
+        Debugger
+      target: C:\remote_debugger
+      read_only: true
+      bind:
+        create_host_path: true
+networks:
+  default:
+    name: dockercompose1137122304428824288_default

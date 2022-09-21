@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="conexao-Web.config Connection String" description="conexao A Cadeia de Conexão usada em web.config pelo aplicativo para acessar o banco de dados." defaultValue="server=172.17.0.1; user id=root; password=12345678; database=dbleagueofyourlegends" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\mateu\\source\\repos\\LeagueOfYourLegends_API\\LeagueOfYourLegends_API\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='conexao']/@connectionString" />
+  </parameter>
+</parameters>

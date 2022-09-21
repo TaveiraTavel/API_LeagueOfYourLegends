@@ -1,0 +1,16 @@
+name: dockercompose1137122304428824288
+services:
+  leagueofyourlegends_api:
+    build:
+      context: C:\Users\mateu\source\repos\LeagueOfYourLegends_API\LeagueOfYourLegends_API
+      dockerfile: Dockerfile
+    image: leagueofyourlegendsapi
+    networks:
+      default: null
+    ports:
+    - mode: ingress
+      target: 80
+      protocol: tcp
+networks:
+  default:
+    name: dockercompose1137122304428824288_default

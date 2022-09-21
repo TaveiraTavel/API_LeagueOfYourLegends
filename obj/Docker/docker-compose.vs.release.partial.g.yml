@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  leagueofyourlegends_api:
+    container_name: LeagueOfYourLegends_API_1
+    build:
+      args:
+        source: obj/Docker/publish/
+      labels:
+        com.microsoft.created-by: "visual-studio"
+        com.microsoft.visual-studio.project-name: "LeagueOfYourLegends_API"
+    volumes:
+      - C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\Remote Debugger:C:\remote_debugger:ro
+    entrypoint: cmd /c "start /B C:\\ServiceMonitor.exe w3svc & C:\\remote_debugger\\x64\\msvsmon.exe /noauth /anyuser /silent /nostatus /noclrwarn /nosecuritywarn /nofirewallwarn /nowowwarn /timeout:2147483646"
+    labels:
+      com.microsoft.visualstudio.debuggee.program: "C:\\inetpub\\wwwroot\\bin\\LeagueOfYourLegends_API.dll"
+      com.microsoft.visualstudio.debuggee.workingdirectory: "C:\\app"
+      com.microsoft.visual-studio.project-name: "LeagueOfYourLegends_API"

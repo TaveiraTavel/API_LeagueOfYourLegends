@@ -5,6 +5,8 @@ VisualStudioVersion = 17.3.32804.467
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeagueOfYourLegends_API", "LeagueOfYourLegends_API\LeagueOfYourLegends_API.csproj", "{455E23B7-889B-4166-B3CA-486D177BEDAF}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{DCE6ED52-305D-4335-8C33-8269D97CDD3E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{455E23B7-889B-4166-B3CA-486D177BEDAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{455E23B7-889B-4166-B3CA-486D177BEDAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{455E23B7-889B-4166-B3CA-486D177BEDAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCE6ED52-305D-4335-8C33-8269D97CDD3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCE6ED52-305D-4335-8C33-8269D97CDD3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCE6ED52-305D-4335-8C33-8269D97CDD3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCE6ED52-305D-4335-8C33-8269D97CDD3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

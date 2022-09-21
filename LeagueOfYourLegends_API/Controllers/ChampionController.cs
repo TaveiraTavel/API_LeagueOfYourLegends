@@ -20,7 +20,7 @@ namespace LeagueOfYourLegends_API.Controllers
         public string Get()
         {
             //return new Champion().getAllChampions();
-            return "TODOS";
+            return "server=172.17.0.1";
         }
     }
 }
